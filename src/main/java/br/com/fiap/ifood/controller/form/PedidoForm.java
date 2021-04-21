@@ -1,7 +1,11 @@
 package br.com.fiap.ifood.controller.form;
 
 import br.com.fiap.ifood.modelo.*;
+
+import br.com.fiap.ifood.repository.ItemRepository;
+import br.com.fiap.ifood.repository.PedidoRepository;
 import br.com.fiap.ifood.repository.RestauranteRepository;
+import br.com.fiap.ifood.repository.UsuarioRepository;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,22 +19,20 @@ import java.util.List;
 public class PedidoForm {
 
 
-    private String titulo;
+    private String numero;
+    private Item item;
     private String mensagem;
-    private String nomePedido;
     private LocalDateTime dataCriacao = LocalDateTime.now();
     private StatusPedido status = StatusPedido.ABERTO;
-    private Usuario autor;
+    private Usuario usuario;
     private Restaurante restaurante;
-    private List<Item> itens = new ArrayList<>();
 
-
-    public String getTitulo() {
-        return titulo;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getMensagem() {
@@ -39,14 +41,6 @@ public class PedidoForm {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
-    }
-
-    public String getNomePedido() {
-        return nomePedido;
-    }
-
-    public void setNomePedido(String nomePedido) {
-        this.nomePedido = nomePedido;
     }
 
     public LocalDateTime getDataCriacao() {
@@ -65,12 +59,12 @@ public class PedidoForm {
         this.status = status;
     }
 
-    public Usuario getAutor() {
-        return autor;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Restaurante getRestaurante() {
@@ -81,17 +75,21 @@ public class PedidoForm {
         this.restaurante = restaurante;
     }
 
-    public List<Item> getItens() {
-        return itens;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItens(List<Item> itens) {
-        this.itens = itens;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-    public Pedido converter(RestauranteRepository restauranteRepository) {
-        Restaurante restaurante = restauranteRepository.findByNome(nomePedido);
-        return new Pedido(titulo, mensagem, restaurante);
+    public Pedido converter(PedidoForm form, ItemRepository itemRepository, UsuarioRepository usuarioRepository, RestauranteRepository restauranteRepository) {
+
+        Item item = itemRepository.getOne(form.getItem().getId());
+        Usuario usuario = usuarioRepository.getOne(form.getUsuario().getId());
+        Restaurante restaurante = restauranteRepository.getOne(form.getRestaurante().getId());
+
+        return new Pedido(form, item, usuario, restaurante);
     }
 
 }

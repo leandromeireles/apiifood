@@ -13,14 +13,7 @@ public class Item {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String mensagem;
-	
-	@ManyToOne
-	private Pedido pedido;
-	private LocalDateTime dataCriacao = LocalDateTime.now();
-	@ManyToOne
-	private Usuario autor;
-	private Boolean solucao = false;
+	private String nome;
 
 	@Override
 	public int hashCode() {
@@ -55,44 +48,12 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getMensagem() {
-		return mensagem;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
-	}
-
-	public Pedido getTopico() {
-		return pedido;
-	}
-
-	public void setTopico(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Usuario getAutor() {
-		return autor;
-	}
-
-	public void setAutor(Usuario autor) {
-		this.autor = autor;
-	}
-
-	public Boolean getSolucao() {
-		return solucao;
-	}
-
-	public void setSolucao(Boolean solucao) {
-		this.solucao = solucao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

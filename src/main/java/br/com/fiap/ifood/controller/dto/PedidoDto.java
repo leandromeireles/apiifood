@@ -1,16 +1,10 @@
 package br.com.fiap.ifood.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.fiap.ifood.modelo.*;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 public class PedidoDto {
 
@@ -19,26 +13,26 @@ public class PedidoDto {
     private String mensagem;
     private LocalDateTime dataCriacao;
     private StatusPedido statusPedido;
+    private Item item;
     private Usuario usuario;
     private Restaurante restaurante;
 
 
+
+
     public PedidoDto(Pedido pedido) {
         this.id = pedido.getId();
-        this.titulo = pedido.getTitulo();
+        this.titulo = pedido.getNumero();
 		this.mensagem = pedido.getMensagem();
 		this.dataCriacao = pedido.getDataCriacao();
 		this.statusPedido = pedido.getStatus();
+        this.item = pedido.getItem();
+        this.usuario = pedido.getUsuario();
 		this.restaurante = pedido.getRestaurante();
-		this.usuario = pedido.getAutor();
+
+
 
 	}
-
-    public PedidoDto(Restaurante restaurante, Usuario usuario, String titulo, String mensagem, LocalDateTime dataCriacao, StatusPedido statusPedido) {
-        this.titulo = titulo;
-        this.mensagem = mensagem;
-        this.dataCriacao = dataCriacao;
-    }
 
     public Long getId() {
         return id;
@@ -96,12 +90,21 @@ public class PedidoDto {
         this.dataCriacao = dataCriacao;
     }
 
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
     public static List<PedidoDto> converter(List<Pedido> pedidos) {
         return pedidos.stream().map(PedidoDto::new).collect(Collectors.toList());
     }
 
     public static PedidoDto converterItem(Pedido pedido) {
-        PedidoDto pedidoDto = new PedidoDto(pedido.getRestaurante(), pedido.getAutor(), pedido.getTitulo(), pedido.getMensagem(), pedido.getDataCriacao(), pedido.getStatus());
+        PedidoDto pedidoDto = new PedidoDto(pedido);
 
         return pedidoDto;
     }
