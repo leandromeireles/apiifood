@@ -1,10 +1,8 @@
-package br.com.fiap.ifood.modelo;
+package br.com.fiap.ifood.domain;
 
 import br.com.fiap.ifood.controller.form.PedidoForm;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.*;
 

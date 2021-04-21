@@ -1,4 +1,4 @@
-package br.com.fiap.ifood.modelo;
+package br.com.fiap.ifood.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,14 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Usuario {
+public class Restaurante {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String email;
-	private String senha;
-
+	private String categoria;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,7 +29,7 @@ public class Usuario {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Restaurante other = (Restaurante) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -55,20 +54,12 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 }

@@ -1,4 +1,4 @@
-package br.com.fiap.ifood.modelo;
+package br.com.fiap.ifood.domain;
 
 public enum StatusPedido {
 	
