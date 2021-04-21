@@ -41,6 +41,7 @@ public class PedidosController {
     }
 
     @PostMapping("/pedido")
+    @Transactional
     public ResponseEntity<PedidoDto> cadastrar(@RequestBody PedidoForm form, UriComponentsBuilder uriBuilder) {
         Pedido pedido = pedidoService.converterForm(form);
         URI uri = uriBuilder.path("/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
@@ -55,6 +56,7 @@ public class PedidosController {
     }
 
     @DeleteMapping("/pedido/{id}")
+    @Transactional
     public ResponseEntity<?> remover(@PathVariable("id") Long id) {
 
         pedidoService.remover(id);
